@@ -1,9 +1,9 @@
 const express = require('express');
-const C_usuario = require('../Controlador/C_usuario')
+const {registro, login, actualizarUsuario, eliminarUsuario, } = require('../Controller/user_controller')
 const router = express.Router();
 
 
-router.post('/registro', C_usuario.registro); 
+router.post('/registro', await registro); 
 router.post('/login', Cusuario.login);
 router.get('/usuarios/:id', C_usuario.obtenerUsuarioPorId);
 router.put('/usuarios/:id', C_usuario.actualizarUsuario);
