@@ -1,8 +1,17 @@
-const register = require('../Actions/register')
-
-exports.registro = async (req, res) => {
+const register = require('../Actions/register');
+const login = require('../Actions/login');
+const update = require('../Actions/update_user');
+const get_user = require('../Actions/get_user');
+const get_users = require('../Actions/get_users');
+const delete_user = require('../Actions/delete_user');
+exports.register = async (req, res) => {
+    if (!req.body || !req.body.userName || !req.body.password || !req.body.name || !req.body.UserTipe) {
+            return res.status(400).json({ error: 'Faltan datos requeridos' });
+        }
+    
     try {
-        await acciones.Registro(req.body);
+        
+        await acciones.register(req.body);
         res.status(201).json({ message: 'Usuario registrado exitosamente' });
     } catch (error) {
         console.error(error);
@@ -18,7 +27,7 @@ exports.login = async (req, res) => {
         res.status(500).json({ error: 'Error interno del servidor' });
     }
 };
-exports.consulta = async (req, res) => {
+exports.get_users = async (req, res) => {
     try {
         await acciones.consulta(req.body);
         res.status(201).json({ message: 'Usuario registrado exitosamente' });
@@ -28,7 +37,7 @@ exports.consulta = async (req, res) => {
     }
 };
 
-exports.consulta_usr = async (req, res) => {
+exports.get_users = async (req, res) => {
     try {
         await acciones.consulta_usr(req.body);
         res.status(201).json({ message: 'Usuario registrado exitosamente' });
@@ -37,7 +46,7 @@ exports.consulta_usr = async (req, res) => {
         res.status(500).json({ error: 'Error interno del servidor' });
     }
 };
-exports.actualizarUsuario = async (req, res) => {
+exports.update = async (req, res) => {
     try {
         await acciones.actualizarUsuario(req.body);
         res.status(201).json({ message: 'Usuario registrado exitosamente' });
@@ -46,7 +55,7 @@ exports.actualizarUsuario = async (req, res) => {
         res.status(500).json({ error: 'Error interno del servidor' });
     }
 };
-exports.eliminarUsuario = async (req, res) => {
+exports.delete_user = async (req, res) => {
     try {
         await acciones.eliminarUsuario(req.body);
         res.status(201).json({ message: 'Usuario registrado exitosamente' });

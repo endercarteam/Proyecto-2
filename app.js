@@ -6,7 +6,7 @@ const app = express();
 dotenv.config();
 app.use(express.json());
 mongoose.connect(process.env.MONGODB_URI);
-app.use('api_usuarios', require('./Routes/user_routes'));
+app.use('api/usuarios', require('./Routes/user_routes'));
 app.listen(process.env.PORT, () => {
     console.log(`server escuchando en el puerto ${process.env.PORT}`);
 
