@@ -1,12 +1,11 @@
 const express = require('express');
-const {register, login, update_user, delete_user, get_users, get_user, } = require('../Controller/user_controller')
+const {register_controller, login, update_user_controller, delete_use_controller, get_users_controller } = require('../Controller/user_controller')
 const router = express.Router();
-const { validateRole } = require('../middlewares/roleAuth');
 
-router.post('/register' , async (req,res) => {
-  const { status, body } = await register({
-    body : req.body
-  });  
+const { authenticate } = require('../middlewares/authenticate');
+
+router.post('/register' , authenticate, async (req,res) => {
+  const { status, body } = await register_controller( req, res);  
   res.status(status).json(body);
 }); 
 
@@ -16,28 +15,16 @@ router.post('/login', async (req,res) => {
   });  
   res.status(status).json(body);
 });
-router.get('/user/:id', async (req,res) => {
-  const { status, body } = await get_user({
-    id : req.params.id,
-    
-  });  
+router.put('/users/update', authenticate, async (req,res) => {
+  const { status, body } = await update_user_controller(req);  
   res.status(status).json(body);
 });
 router.get('/users/',async (req,res) => {
-  const { status, body } = await get_users({
-    querry : req.query
-  });  
+  const { status, body } = await get_users_controller(req, res);  
   res.status(status).json(body);
 });
-router.put('/updateUser/:id', async (req,res) => {
-  const { status, body } = await update_user({
-    id : req.params.id,
-    body: req.body
-  });  
+
+router.put('/users/delete', authenticate ,async (req,res) => {
+  const { status, body } = await delete_use_controller(req);  
   res.status(status).json(body); });
-router.delete('/DeleteUser/:id', async (req,res) => {
-  const { status, body } = await update_user({
-    id : req.params.id,
-    
-  });  
-  res.status(status).json(body); });
+module.exports = router;
